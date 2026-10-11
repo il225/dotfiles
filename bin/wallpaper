@@ -1,0 +1,59 @@
+#!/sbin/bash
+
+# NECESSARY CONDITIONS
+# this script uses i3-wm and feh packages
+# in ~/.config/i3/config, include the following line
+# exec-always feh --bg-fill ~/Pictures/Wallpapers/wallpaper
+
+# if your path to wallpapers differs, then change the line in i3 config and in
+# the cd command below
+
+# This script assumes that the main files containing the pattern "wallpaper" 
+# follow a basic pattern of "wallpaper<num>.<ext> where every num is a unique
+# positive integer of the same length.
+# (e.g. for 10 main files, num is {01, 02, 03, 04, 05, 06, 07, 08, 09, 10})
+# By making the names distinct, this code circumvents comparing <ext>s
+
+# The only other files are wallpaper (no ext) and wallpaper.<ext> (no number),
+# the former is the active wallpaper file in ~/config/i3/config, and the
+# latter is the default wallpaper
+
+# There is a tool I made to format a directory to meet the format outlined
+# see bulk_renamer BUT DO NOT BLINDLY RUN IT ON A DIRECTORY
+# It is very naive at the moment, so reminder to use backups and caution
+
+# Put all wallpapers images in a folder.
+cd ~/Pictures/Wallpapers || exit
+
+# Make one file the default
+default=wallpaper.png
+
+# this is code for a basic random function, but it is bad
+# needs to be psuedo random for better ux
+# also implementation is bad for some reason but i am not great at bash
+# Random Non-Default Wallpaper Flag
+# if [ "$1" == "-r" ]; then
+# 	possible=$(ls | grep -c .)
+# 	number=$((1+$RANDOM%($possible-2)))
+# 	if [ $number -lt 10 ]; then
+# 		number=0$number
+# 	fi
+# 	echo wallpaper"$number".*
+# 	cp wallpaper"$number".* wallpaper
+
+# Set Wallpaper by Number
+if [ "$#" -gt 0 ]; then
+	echo wallpaper"$1".* 
+	cp wallpaper"$1".* wallpaper
+
+# Set Default Wallpaper
+else
+	echo "$default"
+	cp $default wallpaper
+fi
+
+echo restarting i3wm config...
+i3-msg restart
+
+# this script is not proper, but it works as intended
+# if i get time, i will look into throwing errors and making a man page or help

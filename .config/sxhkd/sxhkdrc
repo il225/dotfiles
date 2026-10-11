@@ -1,0 +1,80 @@
+# Reload sxhkdrc (this file)
+super + alt + s
+    pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
+
+# Brightness Icon
+
+# fix icon paths
+
+# Brightness Control
+XF86MonBrightnessDown
+	brightnessctl set 5%-; notify-send "$(brightnessctl %g | grep %)" -i ~/.config/sxhkd/brightness-icon.png -t 1250
+
+XF86MonBrightnessUp
+	brightnessctl set +5%; notify-send "$(brightnessctl %g | grep %)" -i ~/Pictures/Icons/brightness-icon.png -t 1250
+
+XF86MonBrightnessDown + shift
+	brightnessctl set 1%-; notify-send "$(brightnessctl %g | grep %)" -i ~/Pictures/Icons/brightness-icon.png -t 1250
+
+XF86MonBrightnessUp + shift
+	brightnessctl set +1%; notify-send "$(brightnessctl %g | grep %)" -i ~/Pictures/Icons/brightness-icon.png -t 1250
+
+
+# Audio Out Settings
+
+XF86AudioLowerVolume
+	pamixer -d 5; notify-send "Volume: $(pamixer --get-volume-human)" -i /home/isaac/Pictures/Icons/volume-icon-48x.png -t 1250 
+
+XF86AudioRaiseVolume
+	pamixer -i 5; notify-send "Volume: $(pamixer --get-volume-human)"  -i /home/isaac/Pictures/Icons/volume-icon-48x.png -t 1250
+
+shift + XF86AudioLowerVolume
+	pamixer -d 1;notify-send "Volume: $(pamixer --get-volume-human)"  -i /home/isaac/Pictures/Icons/volume-icon-48x.png -t 1250 
+
+shift + XF86AudioRaiseVolume
+	pamixer -i 1;notify-send "Volume: $(pamixer --get-volume-human)" -i /home/isaac/Pictures/Icons/volume-icon-48x.png -t 1250 
+
+XF86AudioMute
+	pamixer -t; notify-send "Volume: $(pamixer --get-volume-human)" -i /home/isaac/Pictures/Icons/volume-icon-48x.png -t 1250 
+
+XF86AudioMicMute
+	pamixer -m; notify-send "Mic Toggled"
+
+
+# Player Settings
+
+XF86AudioPlay
+  playerctl play-pause
+
+super + alt + j
+	playerctl previous
+
+super + alt + k
+	playerctl play-pause
+
+super + alt + l
+	playerctl next
+
+#XF86AudioMicMute needs command to mute mic
+
+# Misc
+
+#super + p needs command to make lock screen?
+# currently using xscreensaver with closing laptop to lock
+# it works but would like to keep laptop open sometimes
+
+Help 
+	librewolf https://archlinux.org/
+
+XF86Calculator
+	kitty qalc
+
+# screenshot button
+super + shift + s
+	flameshot
+
+# task manager equivalent
+shift + ctrl + grave
+	kitty htop
+# ctrl+shift+esc doesn't register
+# yadda yadda windows firmware in keyboards

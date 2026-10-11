@@ -1,0 +1,29 @@
+#!/sbin/bash
+
+echo "This isn't input safe, be careful. If"
+echo "This is a naive system, so must use rename command to remove any 'wallpaper'"
+echo "patterns in working directory."
+echo "What is the pattern you would like to apply to all files in this directory?"
+echo
+echo "Are you confident you want to continue? [y/N]"
+read confirmation
+if [[ "$confirmation" == "y" || "$confirmation" == "Y" ]]; then
+	echo "Very well..."	
+else 
+	exit
+fi
+
+read pattern
+echo $pattern
+
+for file in *;
+do
+	extension="${file#*.}"
+	index=$(ls | grep -c wallpaper)	
+	if [[ index -lt 10 ]]; then
+		index=0$index
+	fi
+	mv $file $pattern$index.$extension;
+done
+
+

@@ -1,0 +1,14 @@
+
+
+program_options:
+  
+  tray:           auto
+  menu:           flat
+  automount:      true
+  notify:         true
+
+  file_manager:   kitty nnn
+
+  terminal:       kitty -d
+
+

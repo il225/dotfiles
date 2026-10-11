@@ -1,0 +1,23 @@
+;; This was an idea lifted from Dreams of Code on Youtube. 
+;; The video is "Turning the worst key on a keyboard into the most useful one"
+;; Here is the link https://www.youtube.com/watch?v=XuQVbZ0wENE
+
+;; Kanata is a keylogging software, so don't get it twisted. This is risky.
+;; Because only capslock is logged, this isn't malware currently afaik
+;; Of course it only takes someone changing this file for malice to arrive 
+
+;; only capslock is seen by kanata
+(defsrc
+  caps 
+)
+
+;; capslock is aliased to scaps in the layer smartcaps
+(deflayer smartcaps
+  @scaps
+)
+
+;; scaps is defined as tap escape, hold control
+(defalias
+  ;; tap: escape, hold: left control
+  scaps (tap-hold 200 200 esc lctl)
+)

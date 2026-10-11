@@ -1,0 +1,4 @@
+config is the config I currently use
+config.bak is the config I used last
+config.base.back is the bare-bones minimum config file I would use
+i3status.conf is the file for the status bar. I don't change it often enough for different versions
