@@ -4,7 +4,8 @@ super + alt + s
 
 # Brightness Icon
 
-# fix icon paths
+# need to fix icon paths
+# will happen soon maybe (tm)
 
 # Brightness Control
 XF86MonBrightnessDown
@@ -70,8 +71,10 @@ XF86Calculator
 	kitty qalc
 
 # screenshot button
+# works similar enough to windows snip
+# doesn't even need to hide in tray either
 super + shift + s
-	flameshot
+	flameshot gui &
 
 # task manager equivalent
 shift + ctrl + grave
