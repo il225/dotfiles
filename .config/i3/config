@@ -8,66 +8,13 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference! ok thanks i3 
 
-
-
-#: BASIC KEYBINDS
-
-#: Mod Key (Mod1 is alt, Mod4 is windows)
+#: MOD KEY (Mod1 is alt, Mod4 is Win)
 set $mod Mod4
+
 
 #: Alt isn't set by default and i will reserve it for special cases
 #: This is because alt could have been i3 mod key
 set $alt Mod1 
-
-#: I3 Reload, Refresh, Exit, Shutdown
-
-#: reload the configuration file (only reloads this file, not whole session)
-bindsym $mod+Shift+c reload
-#: restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-#: exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-#: shutdown (normal and forced)
-bindsym $mod+shift+u exec "i3-nagbar -t warning -m 'You pressed the shutdown shortcut. Do you really want to shutdown?' -B 'Yes, shutdown' 'i3-msg exec shutdown now'"
-bindsym $mod+shift+$alt+u exec shutdown now
-
-
-#: Keybinds for Applications
-
-#: Start a Terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec kitty
-
-#: rofi and dmenu
-# Start dmenu (a program launcher)
-#bindsym $mod+d exec --no-startup-id dmenu_run
-#: many rofi commands that do work are not valid here
-#: it cannot parse multiple modes as in its own example lmao
-bindsym $mod+d exec rofi -show drun
-
-#: Main Browser
-bindsym $mod+backslash exec vivaldi
-#: Main Messenger
-bindsym $mod+bracketright exec discord
-#: System Browser (for documentation and such)
-bindsym $mod+bracketleft exec librewolf
-#: Quick Notes
-bindsym $mod+i exec kitty nvim
-#: Quick PDF Viewer
-bindsym $mod+o exec okular
-
-#: need to find way to fix display for hdmi adding / removing and bind to mod+p
-#: mod+p is the shortcut for media key F7. Symbol is monitor layout
-# bindsym $mod+p exec 
-
-#:not all software is easily keybindable here. 
-#:notably obsidian and blueman, but some cli too
-#bindsym $mod+v exec librepods
-
-#: see WORKSPACES for window-management keybinds
-#: also see .config/sxhkd and .config/kanata for other keybinds
-
-
 
 #: FONTS
 
@@ -80,7 +27,6 @@ font pango:Hack Nerd Font Mono 12
 # font pango:Adwaita Mono 12
 
 
-
 #: START I3 ENVIRONMENT (i won't rewrite these comments)
 
 # Start XDG autostart .desktop files using dex. See also
@@ -88,6 +34,18 @@ font pango:Hack Nerd Font Mono 12
 exec --no-startup-id dex --autostart --environment i3
 
 
+#: I3 RELOAD, REFRESH, EXIT, SHUTDOWN
+
+#: reload the configuration file (only reloads this file, not whole session)
+bindsym $mod+Shift+c reload
+#: restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+#: exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift++$alt+e exec i3-msg exit
+#: shutdown (casual and keyboard)
+bindsym $mod+shift+u exec "i3-nagbar -t warning -m 'You pressed the shutdown shortcut. Do you really want to shutdown?' -B 'Yes, shutdown' 'i3-msg exec shutdown now'"
+bindsym $mod+shift+$alt+u exec shutdown now
 
 #: I3 STATUS BAR
 
@@ -96,9 +54,8 @@ exec --no-startup-id dex --autostart --environment i3
 bar {
         status_command i3status -c ~/.config/i3/i3status.conf 
 	
-	#: Bar Colors
+	#: Bar Colors	
 
-	#: This is custom theming. I will rice eventaully
 	colors {
 		# defaults
 		background 		#34005e
@@ -115,12 +72,12 @@ bar {
 		active_workspace   #34005e #f8238c #808080 
 		inactive_workspace #34005e #3e008b #808080 
 		urgent_workspace   #ff3d00 #ff0004 #34005e 
+
 	}
 }
 
 #: Window Colors 
 
-#: This is custom theming. I will rice eventaully
 # class  		border  backgr  text  indicator child_border
 client.focused		#34005e #6500e1 #ffffff #f8238c #285577
 client.unfocused	#34005e #3e008b #808080 #f8238c #285577	
@@ -131,22 +88,22 @@ client.placeholder	#000000 #0c0c0c #ffffff #000000 #0c0c0c
 # border is around entire window
 # backgr is rectangle above window
 # text is window name
-# indicator is thin bar on right / bottom of window in tile mode. You will barely ever notice it
-# child border is around entire child window. also a niche use case
+# indicator is thin bar on right / bottom of window. You will barely ever notice it
+# child border is around entire child window
 
-#: WORKSPACES 
+#: WORKSPACE INIT AND KEYBINDS
 
 #: Initialize Workspace Variables
-set $ws1 "1 "
-set $ws2 "2 󰖟"
-set $ws3 "3 󰧮"
-set $ws4 "4 "
-set $ws5 "5 ♫"
-set $ws6 "6 "
-set $ws7 "7 "
-set $ws8 "8  "
-set $ws9 "9  "
-set $ws10 "10 🖳"
+set $ws1 "1  CLI"
+set $ws2 "2 󰖟 WEB"
+set $ws3 "3 󰧮 DOC"
+set $ws4 "4  MSG"
+set $ws5 "5 ♫ MUS"
+set $ws6 "6  ART"
+set $ws7 "7  LST"
+set $ws8 "8  XTRA"
+set $ws9 "9 🐝 According to all known laws of aviation, there is no way a bee should be able to fly"
+set $ws10 "10 🖳 PRS"
 
 #: Access Workspaces with Keybinds
 bindsym $mod+1 workspace number $ws1
@@ -159,7 +116,6 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
-#: Wayland has sandbox, i3 has scratchpad
 bindsym $mod+minus scratchpad show
 
 #: Move Container to Workspace
@@ -173,8 +129,14 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
-#: Wayland has sandbox, i3 has scratchpad
 bindsym $mod+shift+minus move scratchpad
+
+#: Apps in Consistent Workspaces
+#: this is a hinderance for 90% of apps
+#: only messaging and music are obvious auto assigns
+#: everything else is better freeform
+assign [class="discord"] $ws4
+assign [class="Spotify"] $ws5
 
 
 #: WORKSPACE ORIENTATION
@@ -183,6 +145,7 @@ bindsym $mod+shift+minus move scratchpad
 
 #: Toggle Fullscren on Focused
 bindsym $mod+f fullscreen toggle
+
 
 #: TILING CONTAINERS
 
@@ -223,11 +186,32 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# stole this code from cee from switzerland on the old/abandoned i3 forums
+# move floating windows with keys
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym Left  move left
+    bindsym Down  move down
+    bindsym Up    move up
+    bindsym Right move right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+m mode "default"
+}
+bindsym $mod+m mode "move" focus floating
+
 #: Stacked and Tabbed Orientations
 
 #: set orientaiton to stack windows with vertically offset title bars
 bindsym $mod+s layout stacking
-
 #: set orientaiton to tab windows with horizontally offset title bars
 bindsym $mod+t layout tabbed
 
@@ -287,13 +271,50 @@ bindsym $mod+Shift+Right move right
 #bindsym $mod+d focus child
 
 
-#: Misc i3 config i added
+#: OPEN PROGRAMS
+
+#: Start a Terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
+
+# Start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
+
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+
+#: many rofi commands that do work are not valid here
+#: it cannot parse multiple modes as in its own example lmao
+bindsym $mod+d exec rofi -show drun
+
+
+#: START OF OTHER PERSONAL ADDITIONS
+
+#: some i3 config i added
 focus_follows_mouse no
 mouse_warping none
 popup_during_fullscreen smart
 
+#: software shortcuts
+bindsym $mod+backslash exec firefox # vivaldi dropped my passwords like 20 times
+bindsym $mod+bracketright exec discord
+bindsym $mod+bracketleft exec librewolf
+bindsym $mod+i exec kitty nvim
+bindsym $mod+o exec okular
 
-#: GAPS (to ammend crappy trackpad accidentally clicking)
+#: need to find way to fix display for hdmi adding / removing and bind to mod+p
+#: mod+p is the shortcut for media key F7
+# bindsym $mod+p exec 
+
+
+#bindsym $mod+v exec librepods
+# bindsym $mod+bracketright exec zen-browser
+
+# not all software is keybindable here. 
+# notably obsidian and blueman, but some cli too
+
+
+#: GAPS (because mouse be in the way hella)
 #: Inner gaps for all windows: space between two adjacent windows (or split containers).
 gaps inner 4
 
@@ -306,38 +327,37 @@ gaps outer 2
 #: xscreensaver
 exec xscreensaver -no-splash
 
-#: this needs to change for multiple displays
+#: Set Brightness (to avoid flashbang)
+#exec brightnessctl set 20%
+#: no longer necessary, ly allows for brightness changes from there
+#: keep this here in case it breaks, though
+
 #: Display Resolution (set here just in case)
 exec_always xrander --output eDP-1 --mode 1920x1080 --scale 1.5
 
 workspace 10 output HDMI-1
 
+
 #: Turn on Nighlight
-#: this sometimes breaks, need to revise
-exec redshift -c ~/.config/redshift/redshift.conf &
+#exec redshift -c ~/.config/redshift/redshift.conf
+# broken and weird
 
 #: Start SXHKD for Keybinds (in the config file)
-#: because media keys and stuff
 exec sxhkd -c ~/.config/sxhkd/sxhkdrc &
 
-#: wallpapers is a WIP rn
 #: Display Wallpaper (if you wish to change it, please rename the file)
+#exec_always feh --bg-fill ~/Pictures/wallpaper.png
 exec_always feh --bg-fill ~/Pictures/Wallpapers/wallpaper
-# i really should make a script to run to get wallpaper sometime
-# this way is inconvenient
+# made a script to get wallpaper, see ~/bin/wallpaper
 
 #: Start Compositor (transparency and fade in)
 exec_always picom -f
 
-#: Start Automounter (for USBs)
+#: Start Automounter
 exec udiskie -c ~/.config/udiskie/config.yml
 
-#: Start Kanata (Smart Caps Lock - Control) 
+#: Start Kanata (Smart Caps Lock) 
 exec kanata -c ~/.config/kanata/kanata.kbd &
 
 #: Start Syndaemon (less accidental clicks)
 exec syndaemon -i 0.5 -t -K -d
-
-#: this one was also broken but definitely my fault
-#: Start speech-dispatcher (tts)
-#exec speech-dispatcher -d &
