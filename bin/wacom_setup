@@ -1,0 +1,33 @@
+#!/sbin/bash
+
+# this is the config for a wacom intuos bt
+# for other tablets, the button numbering is likely different
+
+# get id values with xsetwacom list, grep, and cut
+# the -d $'\t' is some weird notation to make tab a single character
+# thanks stack overflow
+
+PEN_ID=$(xsetwacom list | grep STYLUS | cut -f "11" -d " " | cut -f "1" -d $'\t')
+TABLET_ID=$(xsetwacom list | grep PAD | cut -f "14" -d " " | cut -f "1" -d $'\t')
+
+# confirm that it worked and that the variables are actually numbers
+# this is necessary because of the strangeness of whitespace in the output
+# most commands are better than this, wacom formatted weirdly
+echo STYLUS ID: $PEN_ID
+echo PAD ID: $TABLET_ID
+
+# pen buttons
+xsetwacom set $PEN_ID button 3 "key control z" # undo, my beloved <3
+xsetwacom set $PEN_ID button 2 "key e" # eraser toggle
+
+# tablet buttons
+xsetwacom set $TABLET_ID button 1 "key +0x20" # spacebar because pan is broken
+xsetwacom set  $TABLET_ID button 2 "key +control" # color picker
+xsetwacom set  $TABLET_ID button 3 "key +control 0" # reset zoom
+xsetwacom set  $TABLET_ID button 8 "button 3" # right click for krita menu (only works when pen isn't hovering)
+
+# to move, hold button 1 and drag.
+# to pick a color, hold button 2 and click. (use alt for most drawing apps)
+# to change zoom, hold button 1 and 2. (drag up for in, drag down for out)
+# to reset zoom, click button 3 (holding does whatever control does)
+# to use right click, take the pen far from detection and press the button. idk why but it works
